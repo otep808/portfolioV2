@@ -1,6 +1,8 @@
 /* main.js — progressive enhancement only.
    Every page already contains its full content as plain HTML; this file
-   turns lists into interactive widgets. Vanilla JavaScript, no libraries. */
+   turns lists into interactive widgets. Vanilla JavaScript, except the
+   poster track on the projects page, which uses GSAP + ScrollTrigger
+   loaded from the CDN (see build.py). */
 (function () {
   'use strict';
   var doc = document, root = doc.documentElement;
@@ -208,16 +210,62 @@
 
   /* ---------- project filter ---------- */
   $$('[data-filter-wrap]').forEach(function (wrap) {
-    var chips = $$('.chip', wrap), cards = $$('.card', wrap), out = $('[data-count]', wrap);
+    var chips = $$('.chip', wrap), cards = $$('.poster', wrap), out = $('[data-count]', wrap);
     chips.forEach(function (c) {
       c.addEventListener('click', function () {
         var f = c.getAttribute('data-filter'), n = 0;
         chips.forEach(function (x) { x.setAttribute('aria-pressed', String(x === c)); });
         cards.forEach(function (k) { var ok = f === 'all' || (' ' + k.getAttribute('data-tags') + ' ').indexOf(' ' + f + ' ') > -1; k.hidden = !ok; if (ok) n++; });
         if (out) out.textContent = 'Showing ' + n + ' of ' + cards.length + ' projects';
+        if (window.ScrollTrigger) window.ScrollTrigger.refresh(); /* track got shorter/longer */
       });
     });
   });
+
+  /* ---------- poster track: GSAP horizontal pin (projects page only) ----------
+     GSAP + ScrollTrigger load from the CDN in build.py (projects page only).
+     If they fail to load, or the visitor prefers reduced motion, or the
+     screen is a phone, the track stays a plain swipeable strip / stack. */
+  (function () {
+    var section = $('#posters');
+    if (!section) return;
+    var track = $('.posters-track', section);
+    if (!track) return;
+    if (reduce) return;
+    if (!window.gsap || !window.ScrollTrigger) return;
+    gsap.registerPlugin(ScrollTrigger);
+    var mm = gsap.matchMedia();
+    mm.add('(min-width: 769px)', function () {
+      section.classList.add('posters--pinned');
+      var skewSetter = gsap.quickSetter('.poster-img', 'skewX', 'deg');
+      var clampSkew = gsap.utils.clamp(-5, 5);
+      var proxy = { skew: 0 };
+      var getDist = function () {
+        return Math.max(0, track.scrollWidth - document.documentElement.clientWidth);
+      };
+      gsap.to(track, {
+        x: function () { return -getDist(); },
+        ease: 'none',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top top',
+          end: function () { return '+=' + getDist(); },
+          pin: true,
+          scrub: 1,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          onUpdate: function (self) {
+            var skew = clampSkew(self.getVelocity() / -250);
+            if (Math.abs(skew) > Math.abs(proxy.skew)) {
+              proxy.skew = skew;
+              gsap.to(proxy, { skew: 0, duration: 0.8, ease: 'power3', overwrite: true, onUpdate: function () { skewSetter(proxy.skew); } });
+            }
+          }
+        }
+      });
+      return function () { section.classList.remove('posters--pinned'); };
+    });
+  })();
 
   /* ---------- contact form ---------- */
   var form = $('[data-contact]');

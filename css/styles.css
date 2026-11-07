@@ -398,6 +398,33 @@ details.more .inner{padding:0 0 22px;color:var(--ink-2);max-width:78ch}
 .site-foot li a{display:inline-flex;min-height:36px;align-items:center}
 .site-foot p{margin:0 0 .6em}
 
+/* ---------- poster track: pinned horizontal scroll (projects page) ----------
+   The archive is a row of solid, fully opaque poster cards. Without
+   JavaScript (or if the GSAP CDN fails) the row is a plain swipeable strip;
+   with GSAP it pins and slides sideways. On phones it is a vertical stack. */
+.posters{position:relative;overflow:hidden;background:var(--paper-2);padding:clamp(24px,4vh,48px) 0;min-height:100vh;display:grid;align-content:center;
+  /* 70vh posters, but capped so the whole card (image + caption) still fits
+     under the sticky header on shorter laptop screens; the 430px reserve
+     covers the header, the caption and the section padding. */
+  --poster-h:70vh; --poster-h:min(70vh, calc(100svh - 430px))}
+.posters-track{display:flex;gap:10vw;width:100%;padding:0 5vw;align-items:stretch;overflow-x:auto;background:var(--paper-2);scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+.posters--pinned .posters-track{width:max-content;overflow:visible;will-change:transform}
+.poster{flex:none;width:calc(var(--poster-h) * 2 / 3);background:var(--surface);border:0;border-radius:4px;box-shadow:0 20px 40px rgba(0,0,0,.8);overflow:hidden;opacity:1;display:flex;flex-direction:column}
+.poster-img{height:var(--poster-h);aspect-ratio:2/3;width:100%;background:var(--surface);opacity:1;display:grid;place-items:center;overflow:hidden}
+.poster-img img{width:100%;height:100%;object-fit:contain;opacity:1}
+.poster[hidden]{display:none}
+@media (hover:hover){
+  .poster{transition:transform .35s ease,filter .35s ease}
+  .posters-track:hover .poster:not(:hover){filter:grayscale(.9) brightness(.45)}
+  .poster:hover{transform:scale(1.05);position:relative;z-index:2}
+}
+@media (max-width:768px){
+  .posters{min-height:0;display:block;padding:clamp(24px,6vw,40px) 0}
+  .posters-track{flex-direction:column;width:100%;gap:24px;padding:0 20px;overflow:visible}
+  .poster{width:100%}
+  .poster-img{height:auto;aspect-ratio:2/3}
+}
+
 /* ---------- print / reduced motion ---------- */
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -407,4 +434,8 @@ details.more .inner{padding:0 0 22px;color:var(--ink-2);max-width:78ch}
   .site-head,.drawer,.controls,.tabs,.theme-btn,.cta{display:none!important}
   .js .packet-scn,.js .journey,.js .jstep{display:block!important}
   body{background:#fff;color:#000}
+  .posters{min-height:0;display:block;padding:0}
+  .posters-track{display:block;width:auto;overflow:visible}
+  .poster{width:100%;margin-bottom:16px}
+  .poster-img{height:auto}
 }

@@ -8,6 +8,7 @@ Plain HTML5, CSS3 and vanilla JavaScript. No Bootstrap, no frameworks. Every pag
 - `javascript/main.js` – theme, menu, Follow the Packet, journey stepper, tips, filters, contact form
 - `data/*.json` – all editable content (packet steps, journeys, tips, work, projects, certs, tools)
 - `tools/build.py` – regenerates the HTML pages from `data/`
+- `#posters` on `projects.html` – the 17-project archive is a pinned horizontal track (GSAP + ScrollTrigger from the CDN, same as Google Fonts). Without JavaScript, or if the CDN fails, it falls back to a swipeable strip; on phones (≤768px) it is a vertical stack.
 - `images/`, `files/` (PDFs, résumé, demo reel), `fonts/` (unused: fonts load from Google Fonts)
 
 ## Editing content

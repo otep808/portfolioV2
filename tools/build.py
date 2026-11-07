@@ -141,10 +141,12 @@ def page(slug, title, desc, body, extra_head=""):
     </ul></div>
   </div>
 </footer>
-<script src="javascript/main.js" defer></script>
+%(gsap)s<script src="javascript/main.js" defer></script>
 </body>
 </html>
 """ % dict(full=e(full), desc=e(desc), extra_head=extra_head, sprite=sprite(), nav=nav, drawer=drawer,
+           gsap=('<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>\n'
+                 '<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>\n') if slug == "projects" else "",
            sun=ico("sun", "ico sun"), moon=ico("moon", "ico moon"), menu=ico("menu", "ico open"), x=ico("x", "ico close"),
            body=body, foot_nav="".join('<li><a href="%s.html">%s</a></li>' % (s, l) for s, l in NAV), **SITE)
 
@@ -269,7 +271,7 @@ def card(p, cert=False):
             thumb = '<div class="pdf-thumb" aria-hidden="true">%s</div>' % ico("file")
         link = '<a href="%s" target="_blank" rel="noopener">View certificate%s</a>' % (p["file"], " (PDF)" if p["file"].endswith(".pdf") else "")
         return '<article class="card cert">%s<div class="card-body"><span class="kind">%s</span><h3>%s</h3><p>%s</p>%s</div></article>' % (thumb, kind, e(p["title"]), e(p["text"]), link)
-    return ('<article class="card" data-tags="%s"><img src="%s" alt="%s" loading="lazy"><div class="card-body"><span class="kind">%s</span><h3>%s</h3><p>%s</p>'
+    return ('<article class="poster" data-tags="%s"><div class="poster-img"><img src="%s" alt="%s" loading="lazy"></div><div class="card-body"><span class="kind">%s</span><h3>%s</h3><p>%s</p>'
             '<a href="%s" target="_blank" rel="noopener">%s</a></div></article>') % (
         " ".join(p["tags"]), p["image"], e(p["alt"]), kind, e(p["title"]), e(p["text"]), e(p["link"]), e(p["label"]))
 
@@ -372,11 +374,15 @@ def build_projects():
   <div class="work">%s</div>
 </div></section>
 <section class="section tint" id="reel"><div class="wrap">%s</div></section>
-<section class="section" id="archive"><div class="wrap" data-filter-wrap>
-  <div class="section-head"><h2>The full archive: 17 projects</h2><p>From my first portfolio: coursework and group projects at PLV, each in one plain sentence.</p></div>
+<section class="section" id="archive" data-filter-wrap><div class="wrap">
+  <div class="section-head"><h2>The full archive: 17 projects</h2><p>From my first portfolio: coursework and group projects at PLV, each in one plain sentence. Keep scrolling: the posters pin in place and slide sideways &mdash; hover one to bring it forward.</p></div>
   <div class="filters js-only" role="group" aria-label="Filter projects">%s</div>
   <p class="count" data-count aria-live="polite">Showing 17 of 17 projects</p>
-  <div class="grid">%s</div>
+</div>
+<section id="posters" class="posters" aria-label="All 17 projects as posters. Scroll to move through them.">
+  <div class="posters-track">%s</div>
+</section>
+<div class="wrap">
   <p style="margin-top:28px" class="muted">Looking for the games? My first portfolio has a 17-game arcade with leaderboards: <a href="%s" target="_blank" rel="noopener">play the arcade</a>.</p>
 </div></section>
 %s""" % (tech_toggle(), work, reel(here=True), chip_html, cards, SITE["arcade"], cta("Have a project in mind?", "Tell me what you are trying to fix or build. I will reply within a day."))
