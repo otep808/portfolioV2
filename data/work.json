@@ -1,0 +1,47 @@
+[
+ {
+  "id": "japan-goodies",
+  "title": "Japan Goodies: ordering from Japan without the confusion",
+  "color": "message",
+  "tags": [
+   "Storefront",
+   "Orders and tracking",
+   "Admin reports"
+  ],
+  "situation": "A personal-shopping service for items from Japan. Customers needed to request items, track orders, and know when things would actually arrive, not just that they had ordered.",
+  "built": "Type-in quantities, per-order arrival dates (ETA), stock that deducts and restores correctly, notifications for every status change, and an admin report generator.",
+  "result": "No more overselling stock that is not there, and customers see an arrival-sorted list instead of asking for updates. All five requested updates shipped and passed 27 of 27 end-to-end checks on a test database.",
+  "highlight": "27 of 27 checks passed",
+  "tech": "PHP 8 + MySQL on XAMPP with HTML/CSS/JS. Orders store <code>estimated_arrival</code>; inventory is real stock via <code>products.quantity</code> with <code>stock_deducted</code> flags so cancellations restore exactly once and oversell returns HTTP 409. A <code>notifications</code> table + <code>api/notifications.php</code> drives the header badge and updates page. Reports follow the sequence Report, arrival day, item, pre-order, exportable to CSV and print. Also produced a 132-case peer-evaluation paper matched against the actual system behaviour."
+ },
+ {
+  "id": "damath",
+  "title": "Damath: the maths board game, rebuilt so a game can actually finish",
+  "color": "payment",
+  "tags": [
+   "Desktop game",
+   "Works offline",
+   "About 4,900 lines"
+  ],
+  "situation": "Damath blends checkers-style captures with arithmetic. The existing game crashed on its hardest AI levels and its puzzle mode was broken, which is frustrating for anyone trying to practise.",
+  "built": "Fixed the Hard and Expert AI crashes and the puzzle mode, corrected multi-capture move generation, and added undo, a winner screen with Rematch and Menu, a rules summary before each game, and capture-rule options.",
+  "result": "It now plays from start to finish at every difficulty, works fully offline (on purpose, as requested), and lets a single player choose Red, Blue, or random on Expert.",
+  "highlight": "Plays offline at every level",
+  "tech": "Python + Pygame, a single codebase of roughly 4,900 lines. Settings rebuilt as a card layout to fix UI overlaps; side selection and rule variants (optional / max-capture / dama-first) are configurable per match. Shipped with assets and automated tests covering move generation and the previously crashing AI paths (v5.1 polish, v5.2 rules and settings round)."
+ },
+ {
+  "id": "portfolio-arcade",
+  "title": "My portfolio and game arcade: from static pages to a small system",
+  "color": "wifi",
+  "tags": [
+   "17 games",
+   "Admin + database",
+   "Top-10 leaderboards"
+  ],
+  "situation": "My first portfolio was static. Adding a project meant editing HTML by hand, game scores vanished on refresh, and one bug made the Space key stop working in the typing game.",
+  "built": "Added a PHP backend with an admin login for adding projects, top-10 leaderboards for every game, pun descriptions, three new games, a live Manila clock, and smoother page motion. Found and fixed the Space bug: Snake’s page-wide key handler was swallowing it.",
+  "result": "Projects are managed from a form instead of code, scores persist, and the site is versioned on GitHub. This site is its successor: same content, explained for everyone.",
+  "highlight": "17 games with leaderboards",
+  "tech": "Vanilla PHP + SQLite (<code>api/</code>, no MySQL setup needed), first-run admin creation with no default password, projects seeded from the original 17 cards. Leaderboards fall back to <code>localStorage</code> when PHP is not running so the static mirror never breaks. Code lives at <code>github.com/otep808/portfolio</code> (branch <code>yep</code>)."
+ }
+]

@@ -1,0 +1,242 @@
+[
+ {
+  "id": "message",
+  "icon": "chat",
+  "color": "message",
+  "minutes": 1,
+  "title": "Sending a message",
+  "short": "Where your chat actually goes before it lands.",
+  "situation": "You send a “good morning” in a group chat and it appears on five phones, in two cities, almost instantly.",
+  "simple": "Your message is split into small numbered packets. They leave through your router, cross several networks run by different companies, reach the chat service’s computers, and are delivered to each person’s phone — which rebuilds the message in the right order. Nothing travels in a straight line, and it still usually takes under a second.",
+  "flow": [
+   {
+    "name": "Your phone",
+    "sub": "type & send"
+   },
+   {
+    "name": "Router",
+    "sub": "way out"
+   },
+   {
+    "name": "Internet",
+    "sub": "many networks"
+   },
+   {
+    "name": "Chat servers",
+    "sub": "sort & store"
+   },
+   {
+    "name": "Their phones",
+    "sub": "delivered"
+   }
+  ],
+  "wrong": [
+   "No signal or data — packets can’t leave your phone",
+   "The chat service is down, so messages queue",
+   "A very old phone struggles with large photos and videos"
+  ],
+  "help": "I trace where a message stalls — device, local network, or service — and I build messaging and notification features (like Japan Goodies’ order updates) that tell users what happened instead of failing silently.",
+  "tryit": "If a message won’t send, toggle airplane mode on and off. It forces your phone to reconnect cleanly — the digital version of hanging up and redialling.",
+  "tech": "Apps segment payloads into IP packets with sequence numbers; TCP (or QUIC) guarantees ordered, retransmitted delivery. The service persists the message and fans it out via push notifications; end-to-end encrypted apps seal content so only recipients can read it."
+ },
+ {
+  "id": "website",
+  "icon": "globe",
+  "color": "website",
+  "minutes": 1,
+  "title": "Opening a website",
+  "short": "Why some pages snap open and others crawl.",
+  "situation": "You tap a link and wait… and wait. The same site was instant yesterday on a different connection.",
+  "simple": "Your browser first looks up the site’s numeric address (like finding a shop in a directory), opens a secure encrypted connection, and asks for the page. The page arrives in packets — text, images, and code — and your browser assembles and draws it. Slowness can live at any of those stages.",
+  "flow": [
+   {
+    "name": "Browser",
+    "sub": "type address"
+   },
+   {
+    "name": "Name lookup",
+    "sub": "find server"
+   },
+   {
+    "name": "Secure link",
+    "sub": "encrypted"
+   },
+   {
+    "name": "Server",
+    "sub": "builds page"
+   },
+   {
+    "name": "Your screen",
+    "sub": "page drawn"
+   }
+  ],
+  "wrong": [
+   "The name lookup is slow or failing",
+   "The server is overloaded or far away",
+   "The page is heavy — huge images on a modest phone"
+  ],
+  "help": "I build pages that stay light, load in a sensible order, and keep working on ordinary phones and connections — and I diagnose whether a “slow site” is the site, the server, or the network.",
+  "tryit": "Compare: open the slow site on mobile data, then on Wi-Fi. Fast on one and slow on the other points at the connection, not the website.",
+  "tech": "DNS resolves the domain to an IP; TCP + TLS (increasingly QUIC/HTTP-3) secures the channel; the server responds — often PHP rendering from a database — and the browser parses the DOM, applies CSS, runs JS, and paints."
+ },
+ {
+  "id": "wifi",
+  "icon": "wifi",
+  "color": "wifi",
+  "minutes": 2,
+  "title": "Why your Wi-Fi feels slow",
+  "short": "The video buffers. Everyone blames “the internet”.",
+  "situation": "You’re streaming a video and it keeps buffering — even though you’re paying for a fast plan.",
+  "simple": "Wi-Fi speed can be affected by distance from the router, walls, interference from neighbours and appliances, too many connected devices, or the internet plan itself. The speed you pay for is measured at the router, not at your sofa — everything between the two can chip away at it.",
+  "flow": [
+   {
+    "name": "Internet line",
+    "sub": "enters home"
+   },
+   {
+    "name": "Router",
+    "sub": "shares it out"
+   },
+   {
+    "name": "Walls & distance",
+    "sub": "signal weakens"
+   },
+   {
+    "name": "Your devices",
+    "sub": "all sharing"
+   },
+   {
+    "name": "Your video",
+    "sub": "buffers"
+   }
+  ],
+  "wrong": [
+   "The router is tucked in a corner, on the floor, or behind the TV",
+   "One router is covering too large a home",
+   "The router is old, overloaded, or needs a restart / update"
+  ],
+  "help": "I diagnose network issues step by step, improve router placement and configuration, separate devices into networks (for example, guests vs. work), and recommend practical upgrades only when they’ll actually help.",
+  "tryit": "Test your internet speed beside the router, then again in the room where you usually use Wi-Fi. If the speed drops sharply, placement or interference is likely the issue.",
+  "tech": "Radio attenuates through walls and competes for airtime on shared channels (2.4 GHz reaches farther, 5/6 GHz is faster but shorter-range). Diagnosis separates WAN throughput (wired test at the router) from WLAN loss (per-room wireless tests)."
+ },
+ {
+  "id": "payment",
+  "icon": "card",
+  "color": "payment",
+  "minutes": 2,
+  "title": "Paying online safely",
+  "short": "What happens in the seconds after you press “Pay”.",
+  "situation": "You buy something online. Three seconds of spinning… then “Payment successful”. A lot happened in those seconds.",
+  "simple": "Your payment details are scrambled (encrypted) before they travel, checked by a payment service, and sent to your bank. The bank confirms it’s really you, checks funds, and approves. The shop never needs to see — or store — your full card number, and both sides keep a receipt with a reference number.",
+  "flow": [
+   {
+    "name": "Checkout",
+    "sub": "you confirm"
+   },
+   {
+    "name": "Encryption",
+    "sub": "sealed details"
+   },
+   {
+    "name": "Payment service",
+    "sub": "routes it"
+   },
+   {
+    "name": "Your bank",
+    "sub": "approves"
+   },
+   {
+    "name": "Receipt",
+    "sub": "proof kept"
+   }
+  ],
+  "wrong": [
+   "A fake checkout page imitates a real shop to steal details",
+   "Public Wi-Fi plus a lookalike site is a risky combination",
+   "A declined payment is often the bank protecting you, not an error"
+  ],
+  "help": "I build checkout flows that keep sensitive data out of places it doesn’t belong, show clear order references, and give customers honest status updates — the same care used in the Japan Goodies ordering system.",
+  "tryit": "Before paying, check the address starts with https and the shop’s name is spelled exactly right. One wrong letter usually means a copycat site.",
+  "tech": "TLS encrypts in transit; gateways tokenise card data and route issuer↔acquirer via card networks; 3-D Secure adds an OTP/app approval step; authorisation is later cleared and settled in batches under a shared transaction reference."
+ },
+ {
+  "id": "files",
+  "icon": "folder",
+  "color": "files",
+  "minutes": 2,
+  "title": "When files disappear",
+  "short": "Deleted, unsaved, or just… somewhere else?",
+  "situation": "A school file you worked on last night isn’t in the folder where you saved it. Panic first, answers second.",
+  "simple": "“Missing” usually means one of three things: it was saved somewhere unexpected (Downloads or a cloud folder), it never finished saving, or it was deleted — and deleted files often sit in a recycle bin or a cloud service’s version history for weeks. Real loss usually comes from having only one copy, in one place, on one device.",
+  "flow": [
+   {
+    "name": "You save",
+    "sub": "file written"
+   },
+   {
+    "name": "One location",
+    "sub": "single copy"
+   },
+   {
+    "name": "Something happens",
+    "sub": "delete / damage"
+   },
+   {
+    "name": "Bin & history",
+    "sub": "often saved"
+   },
+   {
+    "name": "Backup",
+    "sub": "the real fix"
+   }
+  ],
+  "wrong": [
+   "Saving only on one laptop or one USB stick",
+   "Overwriting the only copy with a broken version",
+   "Assuming “the cloud” is on when it isn’t"
+  ],
+  "help": "I set up simple, boring, reliable backup habits and organise files so “where did I save it?” stops being a daily question — and I build systems that keep records instead of overwriting them.",
+  "tryit": "Follow 3-2-1 in miniature: keep one important folder in three places — your device, a cloud drive, and a USB or external drive. Check the cloud copy actually opens.",
+  "tech": "Filesystems keep metadata separate from content; deletion usually unlinks rather than erases until overwritten. Cloud sync adds version history and soft-delete retention. 3-2-1 = 3 copies, 2 media types, 1 off-site."
+ },
+ {
+  "id": "scam",
+  "icon": "shield",
+  "color": "scam",
+  "minutes": 2,
+  "title": "Spotting a suspicious message",
+  "short": "“Your account will be closed. Click here now.”",
+  "situation": "A text says your bank account is locked, with a link and a deadline. It looks official. It feels urgent. That feeling is the trap.",
+  "simple": "Scam messages copy real logos and language, but they give themselves away: they rush you, ask for passwords or codes no real company requests by message, and the link or sender address is slightly wrong. Real organisations don’t need you to panic — scammers do, because panic skips checking.",
+  "flow": [
+   {
+    "name": "Message arrives",
+    "sub": "looks official"
+   },
+   {
+    "name": "Urgency",
+    "sub": "“act now!”"
+   },
+   {
+    "name": "Closer look",
+    "sub": "wrong sender/link"
+   },
+   {
+    "name": "Don’t click",
+    "sub": "stop the chain"
+   },
+   {
+    "name": "Verify directly",
+    "sub": "official app/site"
+   }
+  ],
+  "wrong": [
+   "Clicking the link and “logging in” on a copycat page",
+   "Sharing a one-time code — that code is the key they’re after",
+   "Believing the sender name shown on your phone (it can be faked)"
+  ],
+  "help": "I teach the pause-and-verify habit, and I build systems that never ask for passwords or codes over chat or email — so a real message from a system I built is easy to tell apart from a fake.",
+  "tryit": "Never use the link in the message. Open the official app or type the real website address yourself, and check there. If nothing’s wrong in the app, the message was fake.",
+  "tech": "Phishing relies on spoofed sender IDs, lookalike domains (homoglyphs, extra subdomains), and credential-harvesting clones. Defences: DMARC/SPF for mail, out-of-band verification, and treating OTPs as credentials that are never shared."
+ }
+]

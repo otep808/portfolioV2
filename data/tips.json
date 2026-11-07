@@ -1,0 +1,32 @@
+[
+ {
+  "title": "Turn on automatic updates",
+  "why": "Updates are mostly security fixes wearing a boring costume. The week a flaw becomes public is the week attackers start using it — updated devices are already patched.",
+  "action": "Tonight: open your phone’s settings, find Software Update, and switch on “download and install automatically”."
+ },
+ {
+  "title": "Use a password manager",
+  "why": "Nobody can memorise 60 strong, different passwords — so everybody reuses a few weak ones. A manager remembers the strong ones for you; you remember one master password.",
+  "action": "Pick a reputable manager, then change your email password first — it’s the master key to everything else."
+ },
+ {
+  "title": "Switch on two-factor authentication (2FA)",
+  "why": "A password can be guessed or leaked. A second factor — a code or approval on your phone — means a stolen password alone still isn’t enough to get in.",
+  "action": "Enable 2FA on your email and social accounts today. Prefer an authenticator app over SMS codes when offered."
+ },
+ {
+  "title": "Back up the files you’d cry over",
+  "why": "Phones get lost, laptops die, files get deleted. A backup turns a disaster into an inconvenience — but only if it exists before you need it.",
+  "action": "Copy your most important folder to a cloud drive AND a USB stick today. Then open the cloud copy to prove it works."
+ },
+ {
+  "title": "Restart your router properly, monthly",
+  "why": "Routers are small computers that run for months without a break; memory fills and small faults pile up. A monthly restart clears them and installs a fresh connection.",
+  "action": "Unplug the router for 10 full seconds, plug it back in, and give it two minutes. Note the date — repeat monthly."
+ },
+ {
+  "title": "Slow down for urgent messages",
+  "why": "Every scam shares one ingredient: hurry. “Act now”, “last chance”, “account closing” — urgency is manufactured to stop you checking.",
+  "action": "Next urgent message you get: do nothing for 10 minutes, then verify through the official app or website — never the message’s own link."
+ }
+]
